@@ -1,0 +1,2 @@
+npm install express ejs mongoose bcryptjs passport passport-local 
+npm i passport-local-mongoose
