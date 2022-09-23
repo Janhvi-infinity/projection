@@ -1,7 +1,10 @@
 //js
 const User = require("../models/User");
+const Project = require("../models/Project")
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
+const fs = require('fs');
+const path = require('path');
 const session = require('express-session');
 const passportLocalMongoose = require("passport-local-mongoose");
 const findOrCreate = require('mongoose-findorcreate');
@@ -73,6 +76,28 @@ const logoutview = (req, res, next) => {
   });
 }
 
+const uploads = (req, res, next) => {
+  const adsolute = path.join(__dirname, req.file.path);
+  const obj = {
+      name: req.body.name,
+      desc: req.body.desc,
+      img: {
+          
+          data: fs.readFileSync(path.join("D:/projection/uploads/" + req.file.filename)),
+          contentType: 'image/png'
+      }
+  }
+  Project.create(obj, (err, item) => {
+      if (err) {
+          console.log(err);
+      }
+      else {
+          // item.save();
+          res.redirect('/');
+      }
+  });
+}
+
 
 module.exports =  {
     registerView,
@@ -82,4 +107,5 @@ module.exports =  {
     registerPost,
     loginPost,
     logoutview,
+    uploads,
 };
