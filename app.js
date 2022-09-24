@@ -10,6 +10,9 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const expressLayouts = require('express-ejs-layouts');
 const findOrCreate = require('mongoose-findorcreate');
 
+
+
+
 const { loginCheck} = require('./auth/passport');
 loginCheck(passport);
 const app = express();
@@ -45,6 +48,10 @@ app.use(bodyParser.urlencoded({
   app.use(passport.initialize());
   app.use(passport.session());
   
+  app.use(function(req, res, next){
+    res.locals.isAuthenticated = req.isAuthenticated();
+    next();
+  })
 // Mongo DB conncetion
 const database = process.env.MONGOLAB_URI;
 mongoose.connect(database, {useUnifiedTopology: true, useNewUrlParser: true })
