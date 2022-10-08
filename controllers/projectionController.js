@@ -9,6 +9,18 @@ const session = require('express-session');
 const passportLocalMongoose = require("passport-local-mongoose");
 const findOrCreate = require('mongoose-findorcreate');
 
+
+//home page
+const Home = (req, res) => {
+  Project.find({}, function(err, tumnail){
+    if (err) {
+      console.log(err)  
+    } else {
+      res.render('Home', {title: 'Home Page', tumnail:tumnail })
+    }
+  })
+}
+
 //For Register Page
 const registerView = (req, res) => {
     res.render("register", {title: 'Registration Page'} );
@@ -31,7 +43,13 @@ const submitProjectView= (req, res) => {
 // need to allow only when login
 
 const projectDetailsView = (req, res) => {
+  if (req.isAuthenticated()){
     res.render("projectDetails", {title: "project Detail"});
+    
+  } else {
+    res.redirect("/login");
+  }
+    
 }
 
 
@@ -58,9 +76,10 @@ const loginPost = (req, res) => {
   req.login(user, function(err){
     if (err) {
       console.log(err);
+      res.redirect("/register")
     } else {
       passport.authenticate("local")(req, res, function(){
-        res.redirect("/submitProject");
+        res.redirect("/");
       });
     }
   });
@@ -82,9 +101,8 @@ const uploads = (req, res, next) => {
       name: req.body.name,
       desc: req.body.desc,
       img: {
-          
           data: fs.readFileSync(path.join("D:/projection/uploads/" + req.file.filename)),
-          contentType: 'image/png'
+          contentType: 'image/jpg'
       }
   }
   Project.create(obj, (err, item) => {
@@ -98,8 +116,15 @@ const uploads = (req, res, next) => {
   });
 }
 
+const googleauthS = (req, res) => {
+  // Successful authentication, 
+  res.redirect("/");
+};
+
+
 
 module.exports =  {
+    Home,
     registerView,
     loginView,
     submitProjectView,
@@ -108,4 +133,5 @@ module.exports =  {
     loginPost,
     logoutview,
     uploads,
+    googleauthS,
 };

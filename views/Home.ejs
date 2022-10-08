@@ -1,15 +1,18 @@
-<div class="card mb-3" style="max-width: 540px;">
+
+<% tumnail.forEach(function(tumnail){ %>
+  <div class="card mb-3" style="max-width: 540px;">
     <div class="row g-0">
       <div class="col-md-4">
         <img src="./image/download (1).png" class="img-fluid rounded-start" alt="...">
       </div>
       <div class="col-md-8">
         <div class="card-body">
-          <h5 class="card-title">Project title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          <h5 class="card-title"><%=tumnail.name%></h5>
+          <p class="card-text"><%=tumnail.desc%></p>
           <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
           <a href="/projectDetails" class="btn btn-primary">Learn More</a>
         </div>
       </div>
     </div>
   </div>
+<% }) %>

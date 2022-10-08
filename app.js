@@ -7,16 +7,18 @@ const bodyParser = require("body-parser");
 const session = require('express-session');
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const expressLayouts = require('express-ejs-layouts');
 const findOrCreate = require('mongoose-findorcreate');
-
 
 
 
 const { loginCheck} = require('./auth/passport');
 loginCheck(passport);
 const app = express();
-const PORT = process.env.PORT || 4111;
+const PORT = process.env.PORT || 3000;
+
+
 
 // Static files
 app.use(express.static('public'))
@@ -35,23 +37,24 @@ app.set('layout', './layout/comman')
 app.use(expressLayouts)
 
 // see the additional part
-app.use(bodyParser.urlencoded({
-    extended: true
-  }));
-  
-  app.use(session({
-    secret: "Our little secret.",
-    resave: false,
-    saveUninitialized: false
-  }));
-  
-  app.use(passport.initialize());
-  app.use(passport.session());
-  
-  app.use(function(req, res, next){
-    res.locals.isAuthenticated = req.isAuthenticated();
-    next();
-  })
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+
+app.use(session({
+  secret: "Our little secret.",
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(function(req, res, next){
+  res.locals.isAuthenticated = req.isAuthenticated();
+  next();
+})
 // Mongo DB conncetion
 const database = process.env.MONGOLAB_URI;
 mongoose.connect(database, {useUnifiedTopology: true, useNewUrlParser: true })
@@ -59,10 +62,5 @@ mongoose.connect(database, {useUnifiedTopology: true, useNewUrlParser: true })
 .catch(err => console.log(err));
 //Navigation
 app.use('/', require('./routes/routes.js'));
-app.get('/', (req, res) => {
-    res.render('Home', {title: 'Home Page'})
-})
-
-
 
 app.listen(PORT, console.log("Server don start for port: " + PORT))
