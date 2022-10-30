@@ -11,8 +11,9 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
   },
- 
-});
+  
+  }
+);
 userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(findOrCreate);
 const User = mongoose.model("User", userSchema);

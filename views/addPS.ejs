@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problem Statment Uploading</title>
+</head>
+  
+<body>
+    <h1>Give Us your Idea</h1>
+    
+    <hr>
+    <div>
+        <form action="/addPS" method="POST" >
+            <div>
+                <label for="ps">Problem Statment</label>
+                <input type="text" id="name" placeholder="Problem Statment" 
+                       value="" name="ps" required>
+            </div>
+            <div>
+                <label for="domain">DOMAIN</label>
+                <textarea id="domain" name="domain" value="" rows="2" 
+                          placeholder="Domain" required>
+                </textarea>
+            </div>
+            <div>
+                <label for="Technology">Technology</label>
+                <textarea id="Technology" name="Technology" value="" rows="2" 
+                          placeholder="Technology" required>
+                </textarea>
+            </div>
+            <div>
+                <label for="TeamName">Team Name</label>
+                <textarea id="TeamName" name="TeamName" value="" rows="2" 
+                          placeholder="TeamName" required>
+                </textarea>
+            </div>
+            
+            <div>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+  
+</html>

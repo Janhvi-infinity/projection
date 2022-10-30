@@ -1,0 +1,17 @@
+<% ps.forEach(function(ps){ %>
+    <div class="card mb-3" style="max-width: 540px;">
+      <div class="row g-0">
+        
+        <div class="col-md-8">
+          <div class="card-body">
+            <p class="card-title"><%=ps.ps%></p>
+            <p class="card-title"><%=ps.Technology%></p>
+            <p class="card-title"><%=ps.TeamName%></p>
+            <p class="card-text"><%=ps.domain%></p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            <a href="#" class="btn btn-primary">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% }) %>
