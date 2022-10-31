@@ -62,5 +62,10 @@ mongoose.connect(database, {useUnifiedTopology: true, useNewUrlParser: true })
 .catch(err => console.log(err));
 //Navigation
 app.use('/', require('./routes/routes.js'));
+// to get current user name
+app.use(function(req,res,next){
+  res.locals.user = req.user;
+  next();
+});
 
 app.listen(PORT, console.log("Server don start for port: " + PORT))

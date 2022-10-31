@@ -23,7 +23,7 @@ const Home = (req, res) => {
 }
 // For adding problem statment 
 const addPS = (req, res) => {
-  res.render("addPS", {title: 'Add your Problem Statment'});
+  res.render("addPS", {title: 'Add your Problem Statment', user: req.user});
 }
 
 const addPSpost = (req, res, next) => {
@@ -32,6 +32,7 @@ const addPSpost = (req, res, next) => {
       domain: req.body.domain,
       Technology: req.body.Technology,
       TeamName: req.body.TeamName,
+      Username: req.user.username,
   }
   Problem.create(obj, (err, item) => {
       if (err) {
@@ -57,6 +58,13 @@ const PSView = (req, res) => {
   } else {
     res.redirect("/login");
   }
+}
+
+// problem statment full pape view more mage
+const PSDetailView = (req, res) => {
+   
+  res.render("PSDetails", {title: "Problem Statment Display", user: req.user });
+
 }
 //For Register Page
 const registerView = (req, res) => {
@@ -198,4 +206,5 @@ module.exports =  {
     addPS,
     addPSpost,
     PSView,
+    PSDetailView,
 };
