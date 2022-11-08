@@ -2,6 +2,7 @@
 const User = require("../models/User");
 const Project = require("../models/Project");
 const Problem = require("../models/Problem");
+const Comment = require("../models/Comment");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const fs = require('fs');
@@ -10,6 +11,7 @@ const session = require('express-session');
 const passportLocalMongoose = require("passport-local-mongoose");
 const findOrCreate = require('mongoose-findorcreate');
 const { title } = require("process");
+const project = require("../models/Project");
 
 //home page
 const Home = (req, res) => {
@@ -33,6 +35,7 @@ const addPSpost = (req, res, next) => {
       Technology: req.body.Technology,
       TeamName: req.body.TeamName,
       Username: req.user.username,
+      
   }
   Problem.create(obj, (err, item) => {
       if (err) {
@@ -62,10 +65,48 @@ const PSView = (req, res) => {
 
 // problem statment full pape view more mage
 const PSDetailView = (req, res) => {
-   
+  
   res.render("PSDetails", {title: "Problem Statment Display", user: req.user });
 
 }
+
+const problemstatmentinfo = async(req, res) => {
+  try {
+    let problemId = req.params.id;
+    const problem = await Problem.findById(problemId);
+    const problemid = problem._id + " "
+    Comment.find({ psId: problemid}, function (err, docs) {
+      if (err){
+          console.log(err);
+      }
+      else{
+        console.log("this is the", docs);
+        res.render('PSDetails', {title: "problem statment details",problem: problem,user: req.user , docs : docs}) 
+      }
+  });
+    
+  } catch (error) {
+    res.send({message: error.message || "Error Occured" });
+  }  
+}
+const postcomment= (req, res) => {
+  const obj = {
+    commenttext: req.body.comment,
+    user: req.body.user_id,
+    psId: req.body.post_id,
+}
+Comment.create(obj, (err, item) => {
+    if (err) {
+        console.log(err);
+    }
+    else {
+        // item.save();
+        res.redirect('/');
+    }
+});
+}
+
+
 //For Register Page
 const registerView = (req, res) => {
     res.render("register", {title: 'Registration Page'} );
@@ -207,4 +248,6 @@ module.exports =  {
     addPSpost,
     PSView,
     PSDetailView,
+    problemstatmentinfo,
+    postcomment,
 };

@@ -1,8 +1,56 @@
-<nav class="navbar navbar-light bg-light">
-    <form class="container-fluid justify-content-start">
-      <button class="btn btn-outline-success me-2" type="button">Main button</button>
-      <button class="btn btn-sm btn-outline-secondary" type="button">Smaller button</button>
-    </form>
-</nav>
 
-<p> <%= user.username %> </p>
+<% if(problem != null) { %>
+
+  <% docs.forEach(function(docs){ %>
+  
+    <div class="card mb-3" style="max-width: 540px;">
+      <div class="row g-0">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title"><%=docs.user%></h5>
+            <h5 class="card-title"><%=docs.commenttext%></h5>
+            
+               
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  <% }) %>
+  <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+     
+      </ol>
+  </nav>
+
+  <div class="row">
+      
+     <div class="col-12 col-md-8 ">
+         <div class="row">
+             <div class="col-12" style="white-space: pre-line;">
+                <h4>problem Description</h4>
+                <h1><%- problem._id %></h1>
+                <h1><%- user.username %></h1>
+             </div>
+         </div>
+     </div>
+     <div class="col-12 col-md-8 ">
+      <div class="row">
+          <form action="/comment" method="POST">
+            <input type="hidden" name="post_id" value="<%= problem._id %> " />
+            <input type="hidden" name="user_id" value="<%= user.username %> " />
+            <div class="form-group" >
+              <textarea class = "form-control" name="comment" rows="3"></textarea>
+            </div>
+            <button type="submit">POST</button>
+          </form>
+      </div>
+  </div>
+
+  </div>
+  
+<% } else { %>
+<p>No Project Found. </p>
+<% } %>
