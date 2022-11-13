@@ -1,22 +1,47 @@
+<div class="d-grid gap-3">
+
 <% ps.forEach(function(ps){ %>
-  <a href="/ps/<%= ps._id %>">
-    <div class="card w-75" style="width: 440px; border-radius: 15px;background-color:rgb(195, 230, 234);">
+  
+  <a href="/ps/<%= ps._id %>" class="col text-center category_link">
+    
+    <div class="container-sm border border-dark rounded-right w-50 pt-3">
+      <div class="d-flex justify-content-md-center">
+          <div class="p-2"><h4>Team Name:</h4></div>
+          <div class="p-2"><%=ps.TeamName%></div>
+          
+        </div>
+        <div class="d-flex flex-row">
+          <div class="p-2"><h4>Problem Statment:</h4></div>
+          <div class="p-2"><%=ps.ps%></div>
+        </div>
+        <div class="d-flex flex-row">
+          <div class="p-2"><h6>Technology:</h6></div>
+          <div class="p-2"><%=ps.Technology%></div>
+        </div>
+        <div class="d-flex justify-content-md-around">
+          <div class="d-flex flex-row">
+              <div class="p-2"><h6>Domain:</h6></div>
+              <div class="p-2"><%=ps.domain%></div>
+          </div>
+          <div class="d-flex flex-row">
+              <div class="p-2"><h6>Uploaded By:</h6></div>
+              <div class="p-2"><%=ps.Username%></div>
+          </div>
+          <div class="d-flex flex-row">
+              <div class="p-2"><h6>Team Member:</h6></div>
+              <div class="p-2">3</div>
+          </div>
+          
+
+        </div>
 
       
-      <div class="card-body" >
-        <h5 class="card-title">Problem Statment: </h5>
-        <p class="card-text"><%=ps.ps%></p>
-        <p class="card-text"><span style="color:rgb(12, 5, 5);font-weight:bold;">Technology:</span><%=ps.Technology%></p>
-        <p class="card-text"><span style="color:rgb(12, 5, 5);font-weight:bold;">Team Name:</span><%=ps.TeamName%></p>
-        <p class="card-text"><span style="color:rgb(12, 5, 5);font-weight:bold;"> Domain:</span><%=ps.domain%></p>
-        <p class="card-text"><span style="color:rgb(12, 5, 5);font-weight:bold;">Uploaded by:</span><%=ps.Username%></p>
-        <p class="card-text"></p>
+    </div>
   
-        <a href="/PSDetails"  class="btn btn-primary">Lern more</a>
-      </div>
-      </div>
       
   </a>
 
+
   
   <% }) %>
+</div>
