@@ -10,11 +10,7 @@ const imageSchema = new mongoose.Schema({
         data: Buffer,
         contentType: String
     },
-    pdf:
-    {
-        data: Buffer,
-        contentType: String,
-    }
+    
 });
   
 //Image is a model which has a schema imageSchema

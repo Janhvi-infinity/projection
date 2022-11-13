@@ -80,7 +80,7 @@ const problemstatmentinfo = async(req, res) => {
           console.log(err);
       }
       else{
-        console.log("this is the", docs);
+  
         res.render('PSDetails', {title: "problem statment details",problem: problem,user: req.user , docs : docs}) 
       }
   });
@@ -89,11 +89,14 @@ const problemstatmentinfo = async(req, res) => {
     res.send({message: error.message || "Error Occured" });
   }  
 }
-const postcomment= (req, res) => {
+const postcomment= async(req, res) => {
+  
   const obj = {
     commenttext: req.body.comment,
+    firstname: req.body.firstname,
     user: req.body.user_id,
     psId: req.body.post_id,
+    
 }
 Comment.create(obj, (err, item) => {
     if (err) {
@@ -101,7 +104,7 @@ Comment.create(obj, (err, item) => {
     }
     else {
         // item.save();
-        res.redirect('/');
+        res.redirect("..");
     }
 });
 }
@@ -140,18 +143,25 @@ const projectDetailsView = (req, res) => {
 
 
 const registerPost = (req, res) => {
-    
-    User.register({username: req.body.username}, req.body.password, function(err, user){
-        if (err) {
-          console.log(err);
-          res.redirect("/register");
-        } else {
-          passport.authenticate("local")(req, res, function(){
-            res.redirect("/login");
-          });
-        }
-      });
+  User.register(new User({username: req.body.username}), req.body.password, function(err, user){
+    if(err) {
+   return res.status(500).json({err:err});
+  }
+  if(req.body.firstname){
+   user.firstname = req.body.firstname;
+  }
+  if (req.body.lastname) {
+   user.lastname = req.body.lastname;
+  }
+  user.save(function(err, user){
+   passport.authenticate('local')(req, res, function(){
+    return res.redirect("/login");
+   });
+  });
+  });
+   
 }
+
 
 const loginPost = (req, res) => {
 
@@ -166,7 +176,7 @@ const loginPost = (req, res) => {
       res.redirect("/register")
     } else {
       passport.authenticate("local")(req, res, function(){
-        res.redirect("/submitProject")
+        res.redirect("/")
       });
     }
   });
@@ -191,10 +201,7 @@ const uploads = (req, res, next) => {
           data: fs.readFileSync(path.join("D:/projection/uploads/" + req.file.filename)),
           contentType: 'image/jpg'
       },
-      pdf: {
-        data: fs.readFileSync(path.join("D:/projection/uploads/" + req.file.filename)),
-        contentType: 'application/pdf'
-      }
+      
   }
   Project.create(obj, (err, item) => {
       if (err) {

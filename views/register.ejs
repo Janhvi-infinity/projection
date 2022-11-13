@@ -7,11 +7,25 @@
         <div class="card-body">
 
           <!-- Makes POST request to /register route -->
+            
           <form action="/register" method="POST">
+            <div>
+              <label for="name">First Name</label>
+              <input type="text" id="name" placeholder="Name" 
+                    value="" name="firstname" required>
+          </div>
+          <div>
+              <label for="name">Last Name</label>
+              <input type="text" id="name" placeholder="Name" 
+                    value="" name="lastname" required>
+          </div>
+            
             <div class="form-group">
               <label for="email">Email</label>
               <input type="email" class="form-control" name="username">
             </div>
+            
+            
             <div class="form-group">
               <label for="password">Password</label>
               <input type="password" class="form-control" name="password">

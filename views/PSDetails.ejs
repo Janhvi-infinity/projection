@@ -1,56 +1,70 @@
 
 <% if(problem != null) { %>
 
-  <% docs.forEach(function(docs){ %>
-  
-    <div class="card mb-3" style="max-width: 540px;">
-      <div class="row g-0">
-        <div class="col-md-4">
-        </div>
-        <div class="col-md-8">
+<section style="background-color: #eee;">
+  <div class="container py-4">
+
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-8 col-lg-6 col-xl-4">
+
+        <div class="card" id="chat1" style="border-radius: 15px;">
+          <div
+            class="card-header d-flex justify-content-between align-items-center p-3 bg-info text-white border-bottom-0"
+            style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
+            <i class="fas fa-angle-left"></i>
+            <p class="mb-0 fw-bold">Discus</p>
+            <i class="fas fa-times"></i>
+          </div>
+
+          
+
           <div class="card-body">
-            <h5 class="card-title"><%=docs.user%></h5>
-            <h5 class="card-title"><%=docs.commenttext%></h5>
-            
-               
+            <% docs.forEach(function(docs){ %>
+
+            <div class="d-flex flex-row justify-content-start mb-4">
+              <h6><%=docs.firstname%></h1>
+              <div class="p-3 ms-3" style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
+                <p class="small mb-0"><%=docs.commenttext%></p>
+              </div>
+            </div>
+
+            <% }) %>
+
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+             
+              </ol>
+          </nav>
+        
+          <div class="row">
+             <div class="col-12 col-md-8 ">
+              <div class="row">
+                  <form action="/ps/:id/comment" method="POST">
+                    <input type="hidden" name="post_id" value="<%= problem._id %> " />
+                    <input type="hidden" name="user_id" value="<%= user.username %> " />
+                    <input type="hidden" name="firstname" value="<%= user.firstname %> " />
+                    
+                    <div class="form-outline">
+                      <textarea class="form-control" id="textAreaExample" name="comment" rows="4"></textarea>
+                      <label class="form-label" for="textAreaExample">Type your message</label>
+                    </div>
+
+                    <button type="submit">POST</button>
+                  </form>
+              </div>
+          </div>
+        
+          </div>
+
           </div>
         </div>
+
       </div>
     </div>
-    
-  <% }) %>
-  <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-     
-      </ol>
-  </nav>
-
-  <div class="row">
-      
-     <div class="col-12 col-md-8 ">
-         <div class="row">
-             <div class="col-12" style="white-space: pre-line;">
-                <h4>problem Description</h4>
-                <h1><%- problem._id %></h1>
-                <h1><%- user.username %></h1>
-             </div>
-         </div>
-     </div>
-     <div class="col-12 col-md-8 ">
-      <div class="row">
-          <form action="/comment" method="POST">
-            <input type="hidden" name="post_id" value="<%= problem._id %> " />
-            <input type="hidden" name="user_id" value="<%= user.username %> " />
-            <div class="form-group" >
-              <textarea class = "form-control" name="comment" rows="3"></textarea>
-            </div>
-            <button type="submit">POST</button>
-          </form>
-      </div>
-  </div>
 
   </div>
-  
+</section>
+
 <% } else { %>
-<p>No Project Found. </p>
-<% } %>
+  <p>No Project Found. </p>
+  <% } %>

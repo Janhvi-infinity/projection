@@ -17,9 +17,9 @@ router.post('/login', loginPost );
 router.get('/logout', logoutview);
 router.get('/addProblemS', addPS );
 router.post('/addPS',addPSpost);
-router.post('/comment', postcomment);
+router.post('/ps/:id/comment', postcomment);
 //problem statment view page
-router.get('/PSView',PSView );
+router.get('/ps',PSView );
 router.get('/PSDetails', PSDetailView,)
 // Problem statment details
 router.get('/ps/:id', problemstatmentinfo);

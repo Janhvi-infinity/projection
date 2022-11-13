@@ -11,8 +11,6 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const expressLayouts = require('express-ejs-layouts');
 const findOrCreate = require('mongoose-findorcreate');
 
-
-
 const { loginCheck} = require('./auth/passport');
 loginCheck(passport);
 const app = express();
@@ -38,7 +36,7 @@ app.use(expressLayouts)
 
 // see the additional part
 
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true}))
 app.use(bodyParser.json())
 
 

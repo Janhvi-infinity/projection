@@ -7,6 +7,7 @@ const Comments = new mongoose.Schema({
     user: String, // domain it can be selection or typing
     psId: String, //  technology it to can be selection or typing
      // user name who uploaded that Problem statment
+    firstname: String,
      ProblemS: {
         type: Schema.Types.ObjectId,
         ref: 'ProblemS'
