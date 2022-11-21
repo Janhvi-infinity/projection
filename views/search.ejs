@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-md">
+  
+    <div class="d-grid gap-3">
+    
+  <% if(psStatment != '') { %>
+    <% psStatment.forEach(function(psStatment, index){ %>
+    <a href="/ps/<%= psStatment._id %>" class="col text-center category__link">
+        <div class="card" style="max-width: 60rem; background-color: rgba(160, 192, 234, 0.911);">
+            <div class="card-body">
+                <div class="d-flex">
+                  <h5 class="card-title p-2">Team Name:</h5>
+                  <h6 class="card-title p-2"><%=psStatment.TeamName%></h6>
+                </div>
+                <div class="d-flex">
+                    <h6 class="card-subtitle mb-2 text-muted">Problem Statment:</h6>
+                    <p class="card-text"><%=psStatment.ps%></p>
+                </div>
+                <div class="d-flex">
+                    <h6 class="card-subtitle mb-2 text-muted">Technology:</h6>
+                    <p class="card-text"><%=psStatment.Technology%></p>
+                </div>
+                <div class="d-flex justify-content-md-around">
+                    <div class="d-flex flex-row">
+                        <div class="p-2"><h6>Domain:</h6></div>
+                        <div class="p-2"><%=psStatment.domain%></div>
+                    </div>
+                    <div class="d-flex flex-row">
+                        <div class="p-2"><h6>Uploaded By:</h6></div>
+                        <div class="p-2"><%=psStatment.Username%></div>
+                    </div>
+                    <div class="d-flex flex-row">
+                        <div class="p-2"><h6>Team Member:</h6></div>
+                        <div class="p-2">3</div>
+                    </div>
+                    
+        
+                  </div>
+      
+            </div>
+          </div>
+    </a>
+    <% }) %>
+  <% } else { %>
+    <p>No items found.</p>
+  <% } %>
+</div>
+
+

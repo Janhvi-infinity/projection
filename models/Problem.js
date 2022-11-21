@@ -17,6 +17,6 @@ const ProblemS = new mongoose.Schema({
 });
   
 //Image is a model which has a schema imageSchema
-  
+ProblemS.index({ps:'text', Technology: 'text', TeamName: 'text', domain: 'text'});
 const Problem = new mongoose.model('ProblemS', ProblemS);
 module.exports = Problem;

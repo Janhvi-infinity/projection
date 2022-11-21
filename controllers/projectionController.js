@@ -11,7 +11,7 @@ const session = require('express-session');
 const passportLocalMongoose = require("passport-local-mongoose");
 const findOrCreate = require('mongoose-findorcreate');
 const { title } = require("process");
-const project = require("../models/Project");
+
 
 //home page
 const Home = (req, res) => {
@@ -192,6 +192,20 @@ const logoutview = (req, res, next) => {
   });
 }
 
+// search problem statment
+const SearchPS = async(req, res) => {
+   //  searchTerm
+   try {
+    let searchTerm = req.body.searchTerm;
+    let psStatment = await Problem.find( { $text: { $search: searchTerm, $diacriticSensitive: true}} );
+    res.render('search' , {title: 'Projecto-Search' , psStatment: psStatment  });
+    // res.json(psStatment);
+} catch (error) {
+    res.send({message: error.message || "Error Occured" });
+}    
+
+}
+
 const uploads = (req, res, next) => {
   const adsolute = path.join(__dirname, req.file.path);
   const obj = {
@@ -257,4 +271,5 @@ module.exports =  {
     PSDetailView,
     problemstatmentinfo,
     postcomment,
+    SearchPS,
 };

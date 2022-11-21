@@ -58,6 +58,10 @@ const database = process.env.MONGOLAB_URI;
 mongoose.connect(database, {useUnifiedTopology: true, useNewUrlParser: true })
 .then(() => console.log('e don connect'))
 .catch(err => console.log(err));
+
+
+
+
 //Navigation
 app.use('/', require('./routes/routes.js'));
 // to get current user name
