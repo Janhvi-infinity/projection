@@ -1,0 +1,60 @@
+
+<% if(Project_Iteams != '') { %>
+    <% Project_Iteams.forEach(function(Project_Iteams, index){ %>
+        <% if(Project_Iteams.ProblemS != '') { %>
+        <div class="card" style="max-width: 60rem;">
+            <div class="card-body">
+                <div class="d-flex">
+                  <h5 class="card-title p-2">Problem Statment:</h5>
+                  <h6 class="card-title p-2"><%=Project_Iteams.ProblemS%></h6>
+                </div>
+                
+            </div>
+        </div>
+    <% } else { %> 
+        <form action="/Problem_Statment" method="post">
+            <div>
+                <textarea id="PS" name="Problem_Statment" value="" rows="3" cols="60"
+                                  placeholder="Enter your Project Problem Statment" required>
+                </textarea>
+            </div>
+            <div>
+            <button type="submit" class="btn btn-dark">Upload</button>
+            </div>
+        </form>
+
+        <% } %>
+
+    <% }) %>
+  <% } else { %>
+    <h1>hjj jn</h1>
+  <% } %>
+<br>
+<br>
+  <form action="/FF180" method="POST" enctype="multipart/form-data">
+    
+            <div>
+                <label for="image">X</label>
+                <input type="file" id="FF180" 
+                       name="FF180" value="" required>
+                <button type="submit" class="btn btn-dark">Upload</button>
+            </div>
+            
+  </form>
+
+
+
+<% Project_Iteams.forEach(function(Project_Iteams , index){ %>
+    
+    <div class="card mb-3" style="max-width: 540px;">
+      <div class="row g-0">
+        <div class="col-md-4">
+          
+          <img src="data:FF180/<%=Project_Iteams.FF180.contentType%>;base64,
+          <%=Project_Iteams.FF180.data.toString('base64')%>" class="img-fluid rounded-start" alt="...">
+        </div>
+      </div>
+    </div>
+    
+  <% }) %>
+  

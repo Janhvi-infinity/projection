@@ -8,3 +8,14 @@ addTechnologysBtn.addEventListener('click', function(){
   input.value ='';
   technologyList.appendChild(newTechnologys);
 });
+
+
+var content = [
+  {id: "Agriculture", text: "Agriculture"},
+  {id: "Defense", text: "Defense"},
+  {id: "Health Care", text: "Health Care"},
+];
+
+
+
+

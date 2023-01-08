@@ -3,6 +3,7 @@ const User = require("../models/User");
 const Project = require("../models/Project");
 const Problem = require("../models/Problem");
 const Comment = require("../models/Comment");
+const ProjectItem = require("../models/Projects");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const fs = require('fs');
@@ -28,7 +29,7 @@ const addPS = (req, res) => {
   res.render("addPS", {title: 'Add your Problem Statment', user: req.user});
 }
 
-const addPSpost = (req, res, next) => {
+const addPSpost = (req, res) => {
   const obj = {
       ps: req.body.ps,
       domain: req.body.domain,
@@ -43,13 +44,15 @@ const addPSpost = (req, res, next) => {
       }
       else {
           // item.save();
-          res.redirect('/');
+          // res.redirect('/');
+          res.json({done:true})
       }
   });
 }
 
 const PSView = (req, res) => {
   if (req.isAuthenticated()){
+    
     
       Problem.find({}, function(err, ps){
         if (err) {
@@ -104,7 +107,7 @@ Comment.create(obj, (err, item) => {
     }
     else {
         // item.save();
-        res.redirect("..");
+        res.redirect(".");
     }
 });
 }
@@ -144,7 +147,7 @@ const projectDetailsView = (req, res) => {
 
 const registerPost = (req, res) => {
   User.register(new User({username: req.body.username}), req.body.password, function(err, user){
-    if(err) {
+  if(err) {
    return res.status(500).json({err:err});
   }
   if(req.body.firstname){
@@ -207,10 +210,14 @@ const SearchPS = async(req, res) => {
 }
 
 const uploads = (req, res, next) => {
-  const adsolute = path.join(__dirname, req.file.path);
+  
   const obj = {
-      name: req.body.name,
-      desc: req.body.desc,
+      Title: req.body.Title,
+      Description: req.body.Description,
+      Domain: req.body.Domain,
+      Keyword: req.body.Keyword,
+      Tool: req.body.Tool,
+      Technology: req.body.Technology,
       img: {
           data: fs.readFileSync(path.join("D:/projection/uploads/" + req.file.filename)),
           contentType: 'image/jpg'
@@ -251,8 +258,59 @@ verifyUser = (req, res, next) => {
       });
     })
   }
+  /***************Start Individual Project Page******************************* */
 
+  const Projects = (req, res) => {
+    ProjectItem.find({}, function (err, Project_Iteams) {
+      if (err){
+          console.log(err);
+      }
+      else{
+  
+        res.render("Projects", {title: "Projects", Project_Iteams: Project_Iteams }) 
+      }
+  });
+    
+  };
 
+  const postProblemStatment= async(req, res) => {
+  
+    const obj = {
+      ProblemS: req.body.Problem_Statment,
+       
+  }
+  ProjectItem.create(obj, (err, item) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            // item.save();
+            res.redirect(".");
+        }
+    });
+  }
+
+  const FF180 = (req, res, next) => {
+    
+    const obj = {
+      FF180: {
+            data: fs.readFileSync(path.join("D:/projection/uploads/" + req.file.filename)),
+            contentType: 'application/pdf'
+        },
+        
+    }
+    ProjectItem.create(obj, (err, item) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            // item.save();
+            res.redirect('/');
+        }
+    });
+  }
+
+  /*****************End Individual Project Page********************************* */
 
 module.exports =  {
     Home,
@@ -272,4 +330,7 @@ module.exports =  {
     problemstatmentinfo,
     postcomment,
     SearchPS,
+    Projects,
+    postProblemStatment,
+    FF180,
 };

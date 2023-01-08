@@ -10,13 +10,13 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const expressLayouts = require('express-ejs-layouts');
 const findOrCreate = require('mongoose-findorcreate');
-
+const cors = require("cors")
 const { loginCheck} = require('./auth/passport');
 loginCheck(passport);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-
+app.use(cors());
 
 // Static files
 app.use(express.static('public'))
