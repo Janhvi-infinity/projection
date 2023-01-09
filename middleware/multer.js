@@ -1,11 +1,10 @@
-const { Store } = require('express-session');
 const multer = require('multer');
   
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
+    destination: (cb) => {
         cb(null, 'uploads')
     },
-    filename: (req, file, cb) => {
+    filename: (file, cb) => {
         cb(null, file.fieldname + '-' + Date.now())
     }
 });

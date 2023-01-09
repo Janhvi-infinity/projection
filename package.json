@@ -1,7 +1,6 @@
 {
   "name": "projection",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "nodemon app.js",
@@ -12,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.2",
     "ejs": "^3.1.8",
     "express": "^4.18.1",
@@ -27,5 +27,15 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^7.1.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Janhvi-infinity/projection.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Janhvi-infinity/projection/issues"
+  },
+  "homepage": "https://github.com/Janhvi-infinity/projection#readme",
+  "description": ""
 }

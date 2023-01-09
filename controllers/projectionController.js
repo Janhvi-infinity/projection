@@ -34,40 +34,38 @@ const addPSpost = (req, res, next) => {
       domain: req.body.domain,
       Technology: req.body.Technology,
       TeamName: req.body.TeamName,
-      Username: req.user.username,
+      // Username: req.user.username,
       
   }
   Problem.create(obj, (err, item) => {
       if (err) {
           console.log(err);
+          res.json({"error":err});
       }
       else {
           // item.save();
-          res.redirect('/');
+          // res.redirect('/');
+          res.json({"success":true})
       }
   });
 }
 
 const PSView = (req, res) => {
-  if (req.isAuthenticated()){
     
       Problem.find({}, function(err, ps){
         if (err) {
           console.log(err)  
+          res.json({"error":err})
         } else {
-          res.render("SeePS", {title: "Problem Statment Display", ps: ps});
+          // res.render("SeePS", {title: "Problem Statment Display", ps: ps});
+          res.json({ps:ps})
         }
       }) 
-  } else {
-    res.redirect("/login");
-  }
 }
 
 // problem statment full pape view more mage
 const PSDetailView = (req, res) => {
-  
   res.render("PSDetails", {title: "Problem Statment Display", user: req.user });
-
 }
 
 const problemstatmentinfo = async(req, res) => {
@@ -198,21 +196,20 @@ const SearchPS = async(req, res) => {
    try {
     let searchTerm = req.body.searchTerm;
     let psStatment = await Problem.find( { $text: { $search: searchTerm, $diacriticSensitive: true}} );
-    res.render('search' , {title: 'Projecto-Search' , psStatment: psStatment  });
-    // res.json(psStatment);
+    // res.render('search' , {title: 'Projecto-Search' , psStatment: psStatment  });
+    res.json({psStatment:psStatment})
 } catch (error) {
-    res.send({message: error.message || "Error Occured" });
+  res.json({"error":error})
+    // res.send({message: error.message || "Error Occured" });
 }    
-
 }
 
-const uploads = (req, res, next) => {
-  const adsolute = path.join(__dirname, req.file.path);
+const uploads = (req, res) => {
   const obj = {
       name: req.body.name,
       desc: req.body.desc,
       img: {
-          data: fs.readFileSync(path.join("D:/projection/uploads/" + req.file.filename)),
+          data: fs.readFileSync(path.join("/Users/mohd.ashharullah/Documents/Projection/uploads/" + req.file.filename)),
           contentType: 'image/jpg'
       },
       
