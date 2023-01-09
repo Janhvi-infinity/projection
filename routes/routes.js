@@ -5,6 +5,7 @@ const {registerView, loginView ,submitProjectView, projectDetailsView,  register
 const router = express.Router();
 
 const store = require('../middleware/multer')
+const proController = require('../controllers/ProjectCon')
 
 router.post('/uploadmultiple', store.single('image') , uploads)
 router.get('/', Home )
@@ -36,5 +37,9 @@ router.post('/Problem_Statment', postProblemStatment )
 
 router.post('/FF180', store.single('FF180'), FF180 )
 
+
+// * projects
+router.get('/getprojects',proController.getProjects )
+router.post('/searchprojects',proController.SearchProject )
 
 module.exports = router;
