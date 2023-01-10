@@ -1,7 +1,22 @@
 //js
 const express = require('express');
 const passport = require("passport");
-const {registerView, loginView ,submitProjectView, projectDetailsView,  registerPost, loginPost, logoutview, uploads, googleauthS, Home, addPS, addPSpost, PSView,PSDetailView, problemstatmentinfo, postcomment, SearchPS, Projects, postProblemStatment, FF180} = require('../controllers/projectionController');
+/**All router */
+const { projectDetailsView,  googleauthS, Home, addPS, addPSpost, PSView,PSDetailView, problemstatmentinfo, postcomment, SearchPS, Projects, postProblemStatment, FF180, Myproject, userData} = require('../controllers/projectionController');
+
+
+/**Group Router */
+const {Mygroup,  } = require('../controllers/Group');
+
+
+/**User Router */
+const {registerView, loginView, registerPost, loginPost, logoutview } = require('../controllers/UserControllers');
+
+
+/**Student Portal Router */
+const { submitProjectView, uploads,} = require('../controllers/StudentPortal');
+
+/**Subjects Router */
 const router = express.Router();
 
 const store = require('../middleware/multer')
@@ -36,5 +51,9 @@ router.post('/Problem_Statment', postProblemStatment )
 
 router.post('/FF180', store.single('FF180'), FF180 )
 
+
+router.get('/group', Mygroup);
+router.get('/:groupID/:subject', Myproject);
+router.post('/userdata',userData );
 
 module.exports = router;

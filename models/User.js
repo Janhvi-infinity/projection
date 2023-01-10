@@ -8,16 +8,35 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String,
   },
-  firstname: {
+  Name: {
     type: String,
   },
-  lastname: {
+  PRN: {
+    type: Number,
+  },
+
+  div: {
     type: String,
+    enum: ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T"],
+  },
+
+  GroupID: {
+    type : String,
+  },
+
+  RollNum: {
+    type: Number,
+  },
+
+  Role: {
+    type : String,
+    enum: ["Faculty", "Leader","Students", "Admin"],
   },
  
   password: {
     type: String,
   },
+  
   
   }
 );

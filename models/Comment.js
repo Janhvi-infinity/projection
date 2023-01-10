@@ -4,8 +4,8 @@ const mongoose = require('mongoose');
 const {Schema} = require('mongoose');
 const Comments = new mongoose.Schema({
     commenttext: String, // problem statment 
-    user: String, // domain it can be selection or typing
-    psId: String, //  technology it to can be selection or typing
+    user: String, // user from present login information no need to type
+    psId: String, //  it is from get req method
      // user name who uploaded that Problem statment
     firstname: String,
      ProblemS: {
