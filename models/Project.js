@@ -1,6 +1,7 @@
 
   
 const mongoose = require('mongoose');
+var conn2 = mongoose.createConnection('mongodb+srv://janhvi:lHOS8l7Bm6dFol7M@cluster0.vbdsq.mongodb.net/test');
   
 const projectSchema = new mongoose.Schema({
    
@@ -49,7 +50,8 @@ const projectSchema = new mongoose.Schema({
     }
 });
   
+
+projectSchema.index({Title:'text', Technology: 'text', Tool: 'text', domain: 'text' ,Keyword:'text', Description:'text' });
 //Image is a model which has a schema imageSchema
-  
-const project = new mongoose.model('Images', projectSchema);
+const project = conn2.model('Images', projectSchema);
 module.exports = project;

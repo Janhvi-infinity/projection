@@ -20,6 +20,7 @@ const { submitProjectView, uploads,} = require('../controllers/StudentPortal');
 const router = express.Router();
 
 const store = require('../middleware/multer')
+const proController = require('../controllers/ProjectCon')
 
 router.post('/uploadmultiple', store.single('image') , uploads)
 router.get('/', Home )
